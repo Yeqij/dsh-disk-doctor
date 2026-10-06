@@ -1,0 +1,6 @@
+# Local scratch used while building dsh-disk-doctor: asar-extracted DSH sources,
+# benchmark scripts, and scratch output. Not part of the deliverable.
+.reference/
+
+# Peer packages linked locally so the plugin can be exercised outside a profile.
+node_modules/

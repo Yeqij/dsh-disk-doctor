@@ -1,0 +1,10 @@
+# dsh bundle patch: inserts this plugin into a profile's layer stack.
+#
+# Applied by `dsh plugin add dsh-disk-doctor` (or by listing the package in a
+# profile's `dsh.profile.bundles`). The row id addresses this plugin's host half;
+# the browser half is declared in `package.json` under `dsh.client` and needs no
+# entry here. Settings are edited on the plugin's page under Plugins, which writes
+# through to the same profile patch, so nothing has to be duplicated in this file.
+- insert:
+    - id: disk-doctor
+      name: 'dsh-disk-doctor'

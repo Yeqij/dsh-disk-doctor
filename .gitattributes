@@ -1,0 +1,5 @@
+# These are Node sources and Markdown, and the browser half is served to the page
+# as-is. Pinning the line ending keeps the repository identical no matter which
+# machine commits or clones it — without this, Windows checks the tree out as CRLF
+# and every other platform then shows a whole-file diff.
+* text=auto eol=lf
