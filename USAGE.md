@@ -209,24 +209,36 @@ pnpm 仓库 112 MB，其中约 109 MB 与插件是同一批物理文件；要用
 ### 情况一：你自己电脑上（已完成）
 什么都不用做，右侧栏点「磁盘空间」。
 
-### 情况二：给朋友装（插件还没发布到网上）
+### 情况二：给朋友装（插件还没发布到 npm）
 
-1. 把 `dsh-disk-doctor` 文件夹里**运行需要的东西**拷给朋友（U 盘、网盘都行）：`lib/`、`client/`、`cordis.patch.yml`、`package.json`、`README.md`、`USAGE.md`、`LICENSE`。`DESIGN.md`、`TODO.md` 和 `test/` 是开发材料，不用拷（`DESIGN.md` 里记着开发机的路径，给它反而是负担）。
-2. 朋友在 DSH 里打开 **插件 / Plugins** 页。
-3. 点 **「添加插件 / Add plugin」**。
-4. 把**文件夹的完整路径**粘进去，例如 `D:\插件\dsh-disk-doctor`。
-5. 点安装，然后**重启 DSH**。
+**最省事的一条**：让朋友在 **插件 / Plugins → 添加插件** 里直接粘这个地址——
 
-> 关键点：那个输入框**直接支持本地文件夹路径**，不需要打命令。
+```
+https://github.com/Yeqij/dsh-disk-doctor
+```
 
-### 情况三：插件发布到网上之后（推荐的最终形态）
+回车，然后**重启 DSH**。就这样，不用下载、不用解压、不用打命令。
+
+> 也可以粘 release 里那个 `.tgz` 的下载地址（和 `npm publish` 会传的是同一份产物）：
+> `https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz`
+
+**如果他那边下不动 GitHub**（国内直连 github.com 常常不通），就退回到最原始的办法：
+
+1. 你把仓库打包发给他（U 盘、网盘都行）——`lib/`、`client/`、`cordis.patch.yml`、`package.json`、`README.md`、`USAGE.md`、`LICENSE` 是运行需要的；`DESIGN.md`、`TODO.md` 和 `test/` 是开发材料，不用给
+2. 他打开 **插件 / Plugins** 页，点 **「添加插件 / Add plugin」**
+3. 把**文件夹的完整路径**粘进去，例如 `D:\插件\dsh-disk-doctor`
+4. 点安装，然后**重启 DSH**
+
+> 关键点：那个输入框**既支持本地文件夹路径，也支持网址**，都不需要打命令。
+
+### 情况三：插件发布到 npm 之后（最终形态）
 
 1. 朋友打开 **插件 / Plugins** 页。
 2. 点 **「添加插件」**。
 3. 输入 `dsh-disk-doctor`。
 4. 回车，重启。
 
-**一步到位。** 这也是为什么要发布到 npm——对普通人最友好。
+**一步到位**，比上面所有方式都短。这也是唯一还差的形态——卡在 npm 账号注册被 Cloudflare 拦住了，插件本身已经准备好，随时能发。
 
 ---
 
@@ -387,9 +399,17 @@ These **eight** live on the plugin's own card; the first three are plain, the ot
 
 **Their own machine:** nothing to do — open **Disk space** in the right sidebar.
 
-**Handing it to a friend before it is published:** copy the files it needs at runtime — `lib/`, `client/`, `cordis.patch.yml`, `package.json`, `README.md`, `USAGE.md`, `LICENSE` — then have them open **Plugins → Add plugin**, paste the **full folder path**, install, and restart DSH. The dialog accepts a local folder path directly — no commands needed. `DESIGN.md`, `TODO.md` and `test/` are development material and need not travel with it.
+**Handing it to a friend before it is on npm:** the shortest route is to have them paste the repository address itself into **Plugins → Add plugin**:
 
-**Once it is published:** open **Plugins → Add plugin**, type `dsh-disk-doctor`, press Enter, restart. That is the whole thing, and it is why publishing matters: it is the only version a non-technical user can do on their own.
+```
+https://github.com/Yeqij/dsh-disk-doctor
+```
+
+Press Enter, then **restart DSH**. Nothing to download, unpack, or type. The same dialog also accepts the tarball URL from the release (`…/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz`), which is byte-for-byte what `npm publish` would upload.
+
+**If GitHub is unreachable on their side** (direct `github.com` access is often blocked in mainland China), fall back to the plain folder: copy the files it needs at runtime — `lib/`, `client/`, `cordis.patch.yml`, `package.json`, `README.md`, `USAGE.md`, `LICENSE` — then have them paste the **full folder path** instead. `DESIGN.md`, `TODO.md` and `test/` are development material and need not travel with it.
+
+**Once it is published to npm:** open **Plugins → Add plugin**, type `dsh-disk-doctor`, press Enter, restart. That is one step shorter than everything above, and it is the only form left — the package itself is ready and only the npm account registration is blocked (Cloudflare will not let the signup page through on this network).
 
 ## Common questions
 
