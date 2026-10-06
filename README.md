@@ -21,22 +21,29 @@
 
 要求 **DeepSeek Harness `>=0.1.0-rc.2`**（实测版本 `0.2.0-rc.2`）、**Node.js `^22.19.0 || >=24.0.0`**。零运行时依赖、零构建步骤、不需要打包器。
 
-> **还没发布到 npm**，所以现在从本地文件夹安装。
+> **还没发布到 npm**，所以不能 `dsh plugin add dsh-disk-doctor`。下面三种方式任选。
 
-1. 把 [`dsh-disk-doctor/`](dsh-disk-doctor/) 这个文件夹拷到本地任意位置（不需要 `DESIGN.md`、`TODO.md`、`test/`，它们是开发材料）
-2. DSH → **插件 / Plugins → 添加插件**，粘贴文件夹的**完整路径**
-3. **重启 DSH**（bundle 在启动时组装）
-
-命令行等价写法：
+### 方式一：直接用本仓库（一条命令）
 
 ```powershell
-dsh plugin --profile <profile> add "<文件夹绝对路径>"
+dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor
 ```
+
+### 方式二：用打包好的 tgz（也是 `npm publish` 会传的同一份产物）
+
+```powershell
+dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz
+```
+
+### 方式三：完全不打命令
+
+1. 下载本仓库（`Code → Download ZIP`，或 `git clone`）
+2. DSH → **插件 / Plugins → 添加插件**，粘贴该文件夹的**完整路径**
+3. **重启 DSH**（bundle 在启动时组装）
 
 ## 测试
 
 ```powershell
-cd dsh-disk-doctor
 npm test
 ```
 
@@ -46,23 +53,30 @@ npm test
 
 | 文件 | 内容 |
 |---|---|
-| [`README.md`](dsh-disk-doctor/README.md) · [`README.zh.md`](dsh-disk-doctor/README.zh.md) | 完整文档：能力声明、三个区的口径、扫描限额、JSON 契约（英 / 中） |
-| [`USAGE.md`](dsh-disk-doctor/USAGE.md) | 面向普通用户：面板怎么看、清理该怎么做、常见问题（中英对照） |
-| [`TRIAL-INSTALL.md`](dsh-disk-doctor/TRIAL-INSTALL.md) | 从工作副本试装、逐项验证、回退（中英对照） |
-| [`DESIGN.md`](dsh-disk-doctor/DESIGN.md) | 设计文档与逐轮变更记录（中文） |
-| [`TODO.md`](dsh-disk-doctor/TODO.md) | 待办与验收清单（中文） |
+| [`README.en.md`](README.en.md) · [`README.zh.md`](README.zh.md) | 完整文档：能力声明、三个区的口径、扫描限额、JSON 契约（英 / 中） |
+| [`USAGE.md`](USAGE.md) | 面向普通用户：面板怎么看、清理该怎么做、常见问题（中英对照） |
+| [`TRIAL-INSTALL.md`](TRIAL-INSTALL.md) | 从工作副本试装、逐项验证、回退（中英对照） |
+| [`DESIGN.md`](DESIGN.md) | 设计文档与逐轮变更记录（中文） |
+| [`TODO.md`](TODO.md) | 待办与验收清单（中文） |
 
 ## 仓库结构
 
+仓库根目录**就是这个 npm 包**——`package.json`、`lib/`、`client/` 都在顶层，所以 `pnpm add <仓库地址>` 能直接装、`npm publish` 也能直接在根目录跑。
+
 ```
 .
-├── LICENSE              MIT
-├── README.md            本文件
-└── dsh-disk-doctor/     插件本体（npm 包）
-    ├── lib/             宿主半边：扫描、分类、渲染、路由、清理
-    ├── client/          浏览器半边：右侧栏面板与设置页（零构建）
-    ├── test/            177 项测试
-    └── ...
+├── package.json        npm 清单（dsh.bundle / dsh.client 声明在这里）
+├── cordis.patch.yml    插入 profile 分层栈的 bundle patch
+├── lib/                宿主半边：扫描、分类、渲染、路由、清理
+├── client/             浏览器半边：右侧栏面板与设置页（零构建）
+├── test/               177 项测试
+├── README.md           本文件（门面）
+├── README.en.md        完整英文文档
+├── README.zh.md        完整中文文档
+├── USAGE.md            面向普通用户的用法
+├── TRIAL-INSTALL.md    试装与回退
+├── DESIGN.md / TODO.md 设计文档与待办（开发材料，不随包发布）
+└── LICENSE             MIT
 ```
 
 ## 许可证
@@ -82,10 +96,20 @@ npm test
 - **No network access** — declared as `network: []` in the manifest, with a test that fails if either half grows an outbound call.
 - **Reports are redacted** — anything leaving the machine replaces your home directory with `~`. Only the local panel shows real paths, because that is where you copy them from.
 
-**Install:** not on npm yet. Copy the [`dsh-disk-doctor/`](dsh-disk-doctor/) folder, then **Plugins → Add plugin**, paste the full folder path, and restart DSH. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2`) and Node `^22.19.0 || >=24.0.0`.
+**Install** — not on npm yet, so pick one:
 
-**Test:** `cd dsh-disk-doctor && npm test` — 177 tests, no DSH host required.
+```powershell
+# 1. straight from this repository (this directory is the npm package)
+dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor
 
-Full documentation in English lives in [`dsh-disk-doctor/README.md`](dsh-disk-doctor/README.md); user-facing how-to in [`dsh-disk-doctor/USAGE.md`](dsh-disk-doctor/USAGE.md).
+# 2. from the packed tarball (byte-for-byte what npm publish would upload)
+dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz
+```
+
+Or download the repository, open **Plugins → Add plugin**, paste the folder path, and restart DSH. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2`) and Node `^22.19.0 || >=24.0.0`.
+
+**Test:** `npm test` — 177 tests, no DSH host required.
+
+Full documentation in English lives in [`README.en.md`](README.en.md); user-facing how-to in [`USAGE.md`](USAGE.md).
 
 **License:** [MIT](LICENSE).

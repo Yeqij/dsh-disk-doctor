@@ -1,6 +1,0 @@
-# Dependencies are only ever installed by the DSH plugin manager, never committed.
-node_modules/
-
-# Local scratch: reports written while developing, and any profile trial install.
-*.log
-dist/

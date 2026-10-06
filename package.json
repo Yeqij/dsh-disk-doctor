@@ -20,6 +20,7 @@
     "client",
     "cordis.patch.yml",
     "README.md",
+    "README.en.md",
     "README.zh.md",
     "USAGE.md",
     "TRIAL-INSTALL.md",
@@ -27,6 +28,14 @@
   ],
   "license": "MIT",
   "author": "dsh-disk-doctor contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yeqij/dsh-disk-doctor.git"
+  },
+  "homepage": "https://github.com/Yeqij/dsh-disk-doctor#readme",
+  "bugs": {
+    "url": "https://github.com/Yeqij/dsh-disk-doctor/issues"
+  },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
   },

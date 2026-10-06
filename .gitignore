@@ -2,5 +2,11 @@
 # benchmark scripts, and scratch output. Not part of the deliverable.
 .reference/
 
-# Peer packages linked locally so the plugin can be exercised outside a profile.
+# Dependencies are only ever installed by the DSH plugin manager, never committed.
+# The root node_modules also holds the locally linked peer packages that let the
+# test suite run outside a profile.
 node_modules/
+
+# Local scratch: reports written while developing, and any profile trial install.
+*.log
+dist/
