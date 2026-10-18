@@ -2,7 +2,7 @@
 
 English | [中文](#中文)
 
-How to install **this working copy** into a DSH profile and check it really works. Written for the unfinished local checkout; once the package is published, the plain `dsh plugin add dsh-disk-doctor` in the README is enough.
+How to install **this working copy** into a DSH profile and check it really works. A published install needs none of this — the plain `dsh plugin add dsh-disk-doctor` in the README is enough; these steps are for a development checkout.
 
 Nothing here is destructive: installing adds one package and one bundle entry, and the rollback is a single command.
 
@@ -78,7 +78,7 @@ That drops the dependency and deselects the bundle. Reports already written unde
 <a id="中文"></a>
 # 中文
 
-把**这份本地工作副本**装进某个 DSH profile 并验证它真的能用的步骤。写这份是因为包还没发布；发布之后用 README 里的 `dsh plugin add dsh-disk-doctor` 就够了。
+把**这份本地工作副本**装进某个 DSH profile 并验证它真的能用的步骤。正式安装不需要这些——用 README 里的 `dsh plugin add dsh-disk-doctor` 就够了；这些步骤是给开发工作副本用的。
 
 全程可逆：安装只增加一个包和一条 bundle 记录，回退是一条命令。
 

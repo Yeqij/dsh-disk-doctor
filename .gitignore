@@ -10,3 +10,6 @@ node_modules/
 # Local scratch: reports written while developing, and any profile trial install.
 *.log
 dist/
+
+# Personal task list and acceptance notes: kept on the development machine only.
+/TODO.md

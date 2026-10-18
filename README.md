@@ -21,25 +21,13 @@
 
 要求 **DeepSeek Harness `>=0.1.0-rc.2`**（实测版本 `0.2.0-rc.2`）、**Node.js `^22.19.0 || >=24.0.0`**。零运行时依赖、零构建步骤、不需要打包器。
 
-> **还没发布到 npm**，所以不能 `dsh plugin add dsh-disk-doctor`。下面三种方式任选。
-
-### 方式一：直接用本仓库（一条命令）
-
 ```powershell
-dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor
+dsh plugin --profile <profile> add dsh-disk-doctor
 ```
 
-### 方式二：用打包好的 tgz（也是 `npm publish` 会传的同一份产物）
+装完**重启 DSH**（bundle 在启动时组装）。
 
-```powershell
-dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz
-```
-
-### 方式三：完全不打命令
-
-1. 下载本仓库（`Code → Download ZIP`，或 `git clone`）
-2. DSH → **插件 / Plugins → 添加插件**，粘贴该文件夹的**完整路径**
-3. **重启 DSH**（bundle 在启动时组装）
+**其他方式**：直接从本仓库装 —— `dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor`；或下载本仓库，在 **插件 → 添加插件** 里粘贴文件夹的完整路径。也可以用 release 里那个与 npm 完全相同的 tgz：`dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz`。
 
 ## 测试
 
@@ -56,8 +44,7 @@ npm test
 | [`README.en.md`](README.en.md) · [`README.zh.md`](README.zh.md) | 完整文档：能力声明、三个区的口径、扫描限额、JSON 契约（英 / 中） |
 | [`USAGE.md`](USAGE.md) | 面向普通用户：面板怎么看、清理该怎么做、常见问题（中英对照） |
 | [`TRIAL-INSTALL.md`](TRIAL-INSTALL.md) | 从工作副本试装、逐项验证、回退（中英对照） |
-| [`DESIGN.md`](DESIGN.md) | 设计文档与逐轮变更记录（中文） |
-| [`TODO.md`](TODO.md) | 待办与验收清单（中文） |
+| [`DESIGN.md`](DESIGN.md) | 设计文档：口径、路径探测、清理模型与不变式（中文） |
 
 ## 仓库结构
 
@@ -75,7 +62,7 @@ npm test
 ├── README.zh.md        完整中文文档
 ├── USAGE.md            面向普通用户的用法
 ├── TRIAL-INSTALL.md    试装与回退
-├── DESIGN.md / TODO.md 设计文档与待办（开发材料，不随包发布）
+├── DESIGN.md           设计文档（开发材料，不随包发布）
 └── LICENSE             MIT
 ```
 
@@ -96,17 +83,13 @@ npm test
 - **No network access** — declared as `network: []` in the manifest, with a test that fails if either half grows an outbound call.
 - **Reports are redacted** — anything leaving the machine replaces your home directory with `~`. Only the local panel shows real paths, because that is where you copy them from.
 
-**Install** — not on npm yet, so pick one:
+**Install** — published on npm:
 
 ```powershell
-# 1. straight from this repository (this directory is the npm package)
-dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor
-
-# 2. from the packed tarball (byte-for-byte what npm publish would upload)
-dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor/releases/download/v0.1.0/dsh-disk-doctor-0.1.0.tgz
+dsh plugin --profile <profile> add dsh-disk-doctor
 ```
 
-Or download the repository, open **Plugins → Add plugin**, paste the folder path, and restart DSH. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2`) and Node `^22.19.0 || >=24.0.0`.
+Alternatively install straight from this repository (`dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor`), paste the folder path into **Plugins → Add plugin**, or use the identical tarball attached to the release. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2`) and Node `^22.19.0 || >=24.0.0`.
 
 **Test:** `npm test` — 177 tests, no DSH host required.
 
