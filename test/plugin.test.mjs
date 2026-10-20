@@ -429,8 +429,17 @@ describe('v0.1 safety invariants', () => {
       assert.ok(!outbound.test(read(source)), `${source.label} reaches the network the manifest denies`)
     }
     // Compatibility must not claim more than was actually verified.
-    assert.deepEqual(Object.values(manifest.dsh.compatibility.dshReleases), ['compatible'])
+    assert.ok(
+      Object.values(manifest.dsh.compatibility.dshReleases).every((state) => state === 'compatible'),
+      'every listed DSH release is claimed compatible'
+    )
     assert.equal(manifest.dsh.compatibility.dsh, '>=0.1.0-rc.2')
+    // DSH decides admission from `engines.dsh` when it is present, and only falls
+    // back to the peer ranges when it is absent. Without it every new DSH release
+    // invalidates the plugin unless the peer list happens to name that exact
+    // version — which is what made 0.1.0 unusable on DSH 0.2.1-rc.2.
+    assert.equal(typeof manifest.engines.dsh, 'string', 'the plugin declares a DSH engine range')
+    assert.ok(manifest.engines.dsh.trim() !== '', 'the declared DSH range is not empty')
   })
 
   it('writes only where it is allowed to: report artifacts and the quarantine manifest', () => {

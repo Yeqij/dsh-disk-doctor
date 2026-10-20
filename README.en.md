@@ -59,7 +59,7 @@ The number the panel and the summary lead with is the **data area** — the part
 
 ## Requirements
 
-- DeepSeek Harness `>=0.1.0-rc.2`, as declared in the manifest — but only `0.2.0-rc.2` has actually been run against it, so treat anything newer as untested
+- DeepSeek Harness `>=0.1.0-rc.2`, declared as `engines.dsh` in the manifest — `0.2.0-rc.2` and `0.2.1-rc.2` have both been run against it, and a version outside the declared range is refused by DSH itself instead of loading silently
 - Node.js `^22.19.0 || >=24.0.0`
 - No runtime dependencies. No build step. No bundler — the browser half is hand-written in the web client's own module format.
 
@@ -326,7 +326,7 @@ npm run test:client   # the browser half, driven through stubbed peers
 
 `test/plugin.test.mjs` loads `lib/index.js` with `@deepseek-ai/dsh-tools` and `@deepseek-ai/schemastery` replaced by the stubs in `test/stubs/`, so the suite runs without an installed DSH host. `test/locate.test.mjs` keeps detection testable by injecting the environment, the executable path and the filesystem probes, so the rules are checked without depending on the machine they happen to run on.
 
-Beyond that suite, the plugin is checked against the real `0.2.0-rc.2` implementation: its definition compiles under the actual `defineTool`; the actual argument validator rejects bad input and the actual output validator accepts the returned value; and the tool is dispatched end to end through the real `ToolRuntime` service on a real cordis context — registering, projecting its schema, executing through the full policy pipeline, and writing its report files. Installing into a profile remains the final confirmation on a given host.
+Beyond that suite, the plugin is checked against the real implementation — first `0.2.0-rc.2`, then the tool definition again under `0.2.1-rc.2`: its definition compiles under the actual `defineTool`; the actual argument validator rejects bad input and the actual output validator accepts the returned value; and the tool is dispatched end to end through the real `ToolRuntime` service on a real cordis context — registering, projecting its schema, executing through the full policy pipeline, and writing its report files. Installing into a profile remains the final confirmation on a given host.
 
 ### Layout
 

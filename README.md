@@ -19,7 +19,7 @@
 
 ## 安装
 
-要求 **DeepSeek Harness `>=0.1.0-rc.2`**（实测版本 `0.2.0-rc.2`）、**Node.js `^22.19.0 || >=24.0.0`**。零运行时依赖、零构建步骤、不需要打包器。
+要求 **DeepSeek Harness `>=0.1.0-rc.2`**（实测 `0.2.0-rc.2` 与 `0.2.1-rc.2`）、**Node.js `^22.19.0 || >=24.0.0`**。零运行时依赖、零构建步骤、不需要打包器。
 
 ```powershell
 dsh plugin --profile <profile> add dsh-disk-doctor
@@ -89,7 +89,7 @@ npm test
 dsh plugin --profile <profile> add dsh-disk-doctor
 ```
 
-Alternatively install straight from this repository (`dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor`), paste the folder path into **Plugins → Add plugin**, or use the identical tarball attached to the release. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2`) and Node `^22.19.0 || >=24.0.0`.
+Alternatively install straight from this repository (`dsh plugin --profile <profile> add https://github.com/Yeqij/dsh-disk-doctor`), paste the folder path into **Plugins → Add plugin**, or use the identical tarball attached to the release. Requires DSH `>=0.1.0-rc.2` (verified against `0.2.0-rc.2` and `0.2.1-rc.2`) and Node `^22.19.0 || >=24.0.0`.
 
 **Test:** `npm test` — 177 tests, no DSH host required.
 
